@@ -1,0 +1,28 @@
+{
+  "name": "real-state-app",
+  "version": "1.0.0",
+  "description": "this is a fullstack app with nodejs, express with his UI",
+  "main": "index.js", 
+  "type": "module",
+  "scripts": {
+    "run-baby": "nodemon ./index.js"
+  },
+  "keywords": [
+    "Nodejs",
+    "express",
+    "html",
+    "javascript",
+    "css",
+    "fullstack",
+    "Pug",
+    "MVC",
+    "Tailwind",
+    "MySQL",
+    "Sequelize"
+  ],
+  "author": "Jesús Antonio Estrada Jiménez @antcodernez",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2"
+  }
+}
