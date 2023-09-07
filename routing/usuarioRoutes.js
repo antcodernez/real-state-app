@@ -3,22 +3,8 @@ import express from "express";
 const router = express.Router();
 
 
-router.get("/", (req, res) => {
-    res.send(`<h1>Real state app</h1>`);
+router.get("/login", (req, res) => {
+    res.render(`auth/login`); //res.render(``); Se va a encargar de mostrar una vista, ../views/auth/login.pug ya no va a ser necesario poner la ruta asi porque ya indique que va a estar en views, en el archivo index.js 
 });
-
-router.get("/pro", (req, res) => {
-    res.json({
-        "Hola": "Soy un master"});  
-});
-
-router.post("/pro/:id", (req, res) =>
-    {
-        const body = req.body;
-        res.status(201).json({
-            "message": "Se guardo correctamente",
-            "data": body
-        });
-    });
 
 export default router;

@@ -2,7 +2,7 @@
   "name": "real-state-app",
   "version": "1.0.0",
   "description": "this is a fullstack app with nodejs, express with his UI",
-  "main": "index.js", 
+  "main": "index.js",
   "type": "module",
   "scripts": {
     "run-baby": "nodemon ./index.js"
@@ -23,6 +23,7 @@
   "author": "Jesús Antonio Estrada Jiménez @antcodernez",
   "license": "ISC",
   "dependencies": {
-    "express": "^4.18.2"
+    "express": "^4.18.2",
+    "pug": "^3.0.2"
   }
 }
