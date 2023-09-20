@@ -1,10 +1,11 @@
 import express from "express";
-
+import { formularioLogin } from "../controllers/usuarioController.js";
+import { formularioRegister } from "../controllers/usuarioController.js";
 const router = express.Router();
 
 
-router.get("/login", (req, res) => {
-    res.render(`auth/login`); //res.render(``); Se va a encargar de mostrar una vista, ../views/auth/login.pug ya no va a ser necesario poner la ruta asi porque ya indique que va a estar en views, en el archivo index.js 
-});
+router.get("/login", formularioLogin);
+
+router.get("/register",formularioRegister)
 
 export default router;
