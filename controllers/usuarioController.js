@@ -8,7 +8,7 @@ const formularioLogin = (req, res) =>
 const formularioRegister = (req, res) =>
     {
         res.render(`auth/register`, {
-            user: `Bienvenido usuario`
+            page: "Create Account"
         }); 
     } 
 

@@ -3,12 +3,10 @@ html(lang="en")
     head
         meta(charset="UTF-8")
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
-        title Real State |
+        title Real State | #{page}
         link(rel="stylesheet", href="/css/app.css")
-    body.min-h-screen.bg-gray-50
-        //- header 
-        //-     h1 Maestro del web
+    body(class="min-h-screen bg-gray-50") 
+    
         main(class="mx-auto container mt-10 px-2")
             block contenido
-            //- aqui estoy indicando que es un area libre para que los templates puedan inyectar el contenido
-        footer  
+            //- aqui estoy indicando que es un area libre para que los templates puedan inyectar el contenido 
