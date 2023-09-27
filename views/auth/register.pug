@@ -1,13 +1,13 @@
 extends ../layout/index
 
 block contenido
-    div(class="py-10")  
+    div(class="pb-10")  
         h1(class="text-4xl my-10 font-extrabold text-center text-purple-500") Real
             span.font-normal.text-black Estate
-        h2(class="text-center text-2xl font-extrabold")= page
+        h2(class="text-center text-2xl font-bold")= page
         
-        div(class="mt-8 mx-auto max-w-md")
-            div(class="bg-white py-8 px-4 shadow")
+        div(class="mt-8 mx-auto max-w-md bg-white py-8 px-4 shadow")
+            div
                 form
                     div 
                         label.block.text-sm.uppercase.text-gray-600.mb-2.font-semibold(for="name") Your Name:
@@ -25,3 +25,8 @@ block contenido
                         label.block.my-5.text-sm.uppercase.text-gray-600.mb-2.font-semibold(for="repeatpassword") Repeat your password:
 
                         input#repeatpassword.w-full.px-2.py-4.border.border-purple-600.cursor-text.rounded-lg.placeholder-purple-300(placeholder="Repeat it" tabindex=4 name="repeatpassword" type="password")
+                    
+                    div(class="flex items-center justify-center mt-5")
+                        a(href="login" class="text-gray-500 text-xs") Do you have an account?
+                    
+                    input(type="submit", value="Create Account" class="w-full bg-purple-500 hover:bg-purple-700 cursor-pointer text-white font-bold py-3 mt-4 rounded-xl")
