@@ -7,15 +7,15 @@ const app = express();
 const port = 4000;  
 
 //coneccion a la db
-// try 
-//     {
-//         await db.authenticate();
-//         console.log("Conexión correcta a la bd");
-//     } 
-// catch (error) 
-//     {
-//         console.error(error);
-//     }
+try 
+    {
+        await db.authenticate();
+        console.log("Conexión correcta a la bd");
+    } 
+catch (error) 
+    {
+        console.error(error);
+    }
 
 //Habilitando pug
 // .set() es para agregar configuraciones al proyecto

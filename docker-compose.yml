@@ -4,7 +4,7 @@ services:
   postgres:
     image: postgres:13
     environment:
-      - POSTGRES_DB=
+      - POSTGRES_DB=bd_real_state
       - POSTGRES_USER=yisus
       - POSTGRES_PASSWORD=lolitoxd28
     ports:
