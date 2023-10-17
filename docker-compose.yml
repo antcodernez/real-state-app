@@ -2,12 +2,24 @@ version: "3.3"
 
 services:
   postgres:
+    container_name: my_container_real_state 
     image: postgres:13
-    environment:
-      - POSTGRES_DB=bd_real_state
-      - POSTGRES_USER=yisus
-      - POSTGRES_PASSWORD=lolitoxd28
+    env_file:
+    - .env
+    #environment:
+     # - POSTGRES_DB=bd_real_state
+     # - POSTGRES_USER=yisus
+     # - POSTGRES_PASSWORD=lolitoxd28
     ports:
+      #- "${DB_PORT}: ${DB_PORT}"
       - 5432:5432
     volumes:
       - ./postgres_data:/var/lib/postgresql/data
+    
+  pgadmin:
+    image: dpage/pgadmin4 #imagen de la que quiero levantar
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@mail.com
+      PGADMIN_DEFAULT_PASSWORD: root
+    ports:
+      - "5050:80" #le estamos asignando puertos uno es de la pc y el otro es el del contenedor
