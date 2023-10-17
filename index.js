@@ -1,10 +1,21 @@
 import express  from "express"; //ES6+ 
 import usuarioRouter from "./routing/usuarioRoutes.js";
 import db from "./config/bd.js";
-import config from "./config/config.cjs";
+
 //Crear la app
 const app = express();  
 const port = 4000;  
+
+// conexion a la bd
+try 
+    {
+        await db.authenticate();
+        console.log("Conexion correcta a la bd");
+    } 
+catch (error) 
+    {
+        console.log(error)
+    }
 
 //Habilitando pug
 // .set() es para agregar configuraciones al proyecto
