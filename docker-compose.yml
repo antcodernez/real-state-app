@@ -6,12 +6,7 @@ services:
     image: postgres:13
     env_file:
     - .env
-    #environment:
-     # - POSTGRES_DB=bd_real_state
-     # - POSTGRES_USER=yisus
-     # - POSTGRES_PASSWORD=lolitoxd28
     ports:
-      #- "${DB_PORT}: ${DB_PORT}"
       - 5432:5432
     volumes:
       - ./postgres_data:/var/lib/postgresql/data
