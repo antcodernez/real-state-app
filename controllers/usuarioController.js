@@ -11,6 +11,9 @@ const formularioRegister = (req, res) =>
             page: "Create Account"
         }); 
     } 
+const register = (req, res) => {
+    console.log(req.body);   
+}
 const formularioForgetpassword = (req, res) =>
     {
         res.render(`auth/forgot-password`, {
@@ -22,7 +25,8 @@ const formularioForgetpassword = (req, res) =>
 export { 
         formularioLogin, 
         formularioRegister,
-        formularioForgetpassword
+        formularioForgetpassword,
+        register
     }
 
 // export default formularioLogin; esta manera solo me permitira exportar una cosa por archivo

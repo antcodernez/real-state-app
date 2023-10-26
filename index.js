@@ -5,6 +5,8 @@ import db from "./config/bd.js";
 //Crear la app
 const app = express();  
 const port = 4000;  
+//Habilidanto lectura de datos de formularios
+app.use(express.urlencoded({extended: true}));
 
 // conexion a la bd
 try 

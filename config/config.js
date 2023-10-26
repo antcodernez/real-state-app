@@ -2,7 +2,6 @@
 
 import dotenv from "dotenv";
 dotenv.config({path: ".env"}); // se utiliza para cargar variables de entorno desde un archivo llamado ".env" 
-
 const config = {
     env: process.env.NODE_ENV || "dev",
     port: process.env.PORT || 4000,
