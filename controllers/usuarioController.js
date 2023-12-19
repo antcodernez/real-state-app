@@ -42,9 +42,11 @@ const register = async (req, res) =>
                 }); 
             }
         
+        //Extraer datos
+        const {name, userEmail, password} = req.body;
         // verifica que el usuario no este duplicado
-
-        const userExist = await User.findOne({ where: { userEmail: req.body.userEmail } });
+        
+        const userExist = await User.findOne({ where: {userEmail}});
         // console.log(`This user exists?: ${userExist}`)
         
         if(userExist)
@@ -58,7 +60,13 @@ const register = async (req, res) =>
                     }
                 }); 
             }
-
+        //Save user
+        await User.create({
+            name,
+            userEmail,
+            password,
+            token: 123
+        })
     }
 
 const formularioForgetpassword = (req, res) =>
