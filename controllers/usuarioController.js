@@ -1,3 +1,6 @@
+import { check, validationResult} from "express-validator";
+import {User} from "../models/Usuario.js";
+
 const formularioLogin = (req, res) =>
     {
         res.render(`auth/login`, {
@@ -11,9 +14,23 @@ const formularioRegister = (req, res) =>
             page: "Create Account"
         }); 
     } 
-const register = (req, res) => {
-    console.log(req.body);   
-}
+
+const register = async (req, res) => 
+    {
+        console.log("Post about one users");
+        console.log(req.body);
+        //Agregando las validaciones
+        await check('name').notEmpty().withMessage("The name can't be empty bro :D").run(req);
+        
+        // validationResult va a validar las reglas que yo haya definido previamente
+        let result = validationResult(req); 
+        res.json(result.array());
+        // run(req); lo que hace invocar la funcion, se puede hacer en el routing o en el controlador depende de gustos supongo
+
+        const user = await User.create(req.body);
+        res.json(user);
+    }
+
 const formularioForgetpassword = (req, res) =>
     {
         res.render(`auth/forgot-password`, {

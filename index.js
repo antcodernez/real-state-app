@@ -1,17 +1,19 @@
 import express  from "express"; //ES6+ 
 import usuarioRouter from "./routing/usuarioRoutes.js";
 import db from "./config/bd.js";
-
+import morgan  from "morgan";
 //Crear la app
 const app = express();  
 const port = 4000;  
 //Habilidanto lectura de datos de formularios
 app.use(express.urlencoded({extended: true}));
-
+// Si veo ejemplos con bodyParser.urlencoded() esa dependencia ya se agrego de manera interna en express
+app.use(morgan("tiny"));
 // conexion a la bd
 try 
     {
         await db.authenticate();
+        db.sync();  //Para sincronizar la base de datos y mis nuevos modelos de la bd 
         console.log("Conexion correcta a la bd");
     } 
 catch (error) 

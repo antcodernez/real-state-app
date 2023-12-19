@@ -2,14 +2,14 @@
 //2.- DataTypes, ver que no sea la version en singular ojo
 
 import { DataTypes } from  "sequelize";
-import db from "../config/bd";
+import db from "../config/bd.js";
 
-const User = db.define("tb_users",{
+const User= db.define("tb_users",{
     name: {
         type: DataTypes.STRING,//defino el tipo de dato y cuantos caracteres va a tener
         allowNull: false
     },
-    email: {
+    userEmail: {
         type: DataTypes.STRING,
         allowNull: false
     },
@@ -24,4 +24,4 @@ const User = db.define("tb_users",{
 
 //Las columnas de la tabla si quiero agregar mas objetos atributos puedo pasarle un objeto dentre de si
 
-export default User;
+export { User };
