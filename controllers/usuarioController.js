@@ -24,14 +24,23 @@ const register = async (req, res) =>
         await check('userEmail').isEmail().withMessage("The email can't be empty bro :D or this not a email mijo").run(req);
         await check('password').isLength({min: 8}).withMessage("The minimun lenght only can be 8 characters").run(req);
         await check('repeat-password').equals("password").withMessage("The password must be equals").run(req);
-        
-        // verificar resultados
-        
-        
-        // validationResult va a validar las reglas que yo haya definido previamente
-        let result = validationResult(req); 
-        res.json(result.array());
         // run(req); lo que hace invocar la funcion, se puede hacer en el routing o en el controlador depende de gustos supongo
+
+        // verificar resultados
+    
+        let result = validationResult(req); 
+        // validationResult va a validar las reglas que yo haya definido previamente
+
+        if(!result.isEmpty())
+            {
+                // errors
+                return res.render(`auth/register`, {
+                    page: "Create Account",
+                    errors: result.array()
+                }); 
+            }
+
+        
 
         const user = await User.create(req.body);
         res.json(user);
