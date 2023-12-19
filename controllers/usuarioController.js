@@ -36,7 +36,11 @@ const register = async (req, res) =>
                 // errors
                 return res.render(`auth/register`, {
                     page: "Create Account",
-                    errors: result.array()
+                    errors: result.array(),
+                    user: {
+                        name: req.body.name,
+                        userEmail: req.body.userEmail                    
+                    }
                 }); 
             }
 
