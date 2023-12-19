@@ -2,7 +2,11 @@
 export default {
   content: ["./views/**/*.pug"],
   theme: {
-    extend: {},
+    extend: {
+      outline: {
+        '10': '10px', // Puedes ajustar este valor según tus necesidades
+      },
+    },
   },
   plugins: [],
 }

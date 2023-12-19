@@ -17,19 +17,19 @@ block contenido
                     div 
                         label.block.text-sm.uppercase.text-gray-600.mb-2.font-semibold(for="name") Your Name:
                         
-                        input#name.w-full.px-2.py-4.border.border-purple-600.cursor-text.rounded-lg.placeholder-purple-300(placeholder="Your Name here baby" tabindex=1 name="name" type="text" value= user? user.name : "")
+                        input#name.w-full.px-2.py-4.border.border-purple-600.cursor-text.rounded-lg.placeholder-purple-300(placeholder="Your Name here baby" tabindex=1 name="name" type="text" value= user? user.name : "" class="focus-custom")
                     div 
                         label.block.my-5.text-sm.uppercase.text-gray-600.mb-2.font-semibold(for="userEmail") Your email:
 
-                        input#userEmail.w-full.px-2.py-4.border.border-purple-600.cursor-text.rounded-lg.placeholder-purple-300(placeholder="example@example.com" tabindex=2 name="userEmail" type="email" value= user? user.userEmail : "")
+                        input#userEmail.w-full.px-2.py-4.border.border-purple-600.cursor-text.rounded-lg.placeholder-purple-300(placeholder="example@example.com" tabindex=2 name="userEmail" type="email" value= user? user.userEmail : "" class="focus-custom")
                     div 
                         label.block.my-5.text-sm.uppercase.text-gray-600.mb-2.font-semibold(for="password") Password:
 
-                        input#password.w-full.px-2.py-4.border.border-purple-600.cursor-text.rounded-lg.placeholder-purple-300(placeholder="******" tabindex=3 name="password" type="password" value= user? user.password : "")
+                        input#password.w-full.px-2.py-4.border.border-purple-600.cursor-text.rounded-lg.placeholder-purple-300(placeholder="******" tabindex=3 name="password" type="password" value= user? user.password : "", class="focus-custom")
                     div 
                         label.block.my-5.text-sm.uppercase.text-gray-600.mb-2.font-semibold(for="repeatpassword") Repeat your password:
 
-                        input#repeatpassword.w-full.px-2.py-4.border.border-purple-600.cursor-text.rounded-lg.placeholder-purple-300(placeholder="Repeat it" tabindex=4 name="repeat-password" type="password" value= user? user.password : "")
+                        input#repeatpassword.w-full.px-2.py-4.border.border-purple-600.cursor-text.rounded-lg.placeholder-purple-300(placeholder="Repeat it" tabindex=4 name="repeatPassword" type="password" value= user? user.password : "", class="focus-custom")
                     
                     div(class="flex items-center justify-center mt-5")
                         a(href="login" class="text-gray-500 text-xs" tabindex=6) Do you have an account?

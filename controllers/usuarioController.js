@@ -1,5 +1,5 @@
 import { check, validationResult} from "express-validator";
-import {User} from "../models/Usuario.js";
+import { User } from "../models/Usuario.js";
 
 const formularioLogin = (req, res) =>
     {
@@ -21,22 +21,37 @@ const register = async (req, res) =>
         console.log(req.body);
         //Agregando las validaciones
         await check('name').notEmpty().withMessage("The name can't be empty bro :D").run(req);
-        await check('userEmail').isEmail().withMessage("The email can't be empty bro :D or this not a email mijo").run(req);
+        await check('userEmail').isEmail().withMessage("This not a email mijo").run(req);
         await check('password').isLength({min: 8}).withMessage("The minimun lenght only can be 8 characters").run(req);
-        await check('repeat-password').equals("password").withMessage("The password must be equals").run(req);
+        await check('repeatPassword').equals(req.body.password).withMessage("The password must be equals").run(req);
         // run(req); lo que hace invocar la funcion, se puede hacer en el routing o en el controlador depende de gustos supongo
 
         // verificar resultados
     
-        let result = validationResult(req); 
+        let errorsList = validationResult(req); 
         // validationResult va a validar las reglas que yo haya definido previamente
-
-        if(!result.isEmpty())
+        if(!errorsList.isEmpty())
             {
-                // errors
+                 return res.render(`auth/register`, {
+                    page: "Create Account",
+                    errors: errorsList.array(),
+                    user: {
+                        name: req.body.name,
+                        userEmail: req.body.userEmail                    
+                    }
+                }); 
+            }
+        
+        // verifica que el usuario no este duplicado
+
+        const userExist = await User.findOne({ where: { userEmail: req.body.userEmail } });
+        // console.log(`This user exists?: ${userExist}`)
+        
+        if(userExist)
+            {
                 return res.render(`auth/register`, {
                     page: "Create Account",
-                    errors: result.array(),
+                    errors: [{msg: "This user is already registered"}],
                     user: {
                         name: req.body.name,
                         userEmail: req.body.userEmail                    
@@ -44,10 +59,6 @@ const register = async (req, res) =>
                 }); 
             }
 
-        
-
-        const user = await User.create(req.body);
-        res.json(user);
     }
 
 const formularioForgetpassword = (req, res) =>
