@@ -21,6 +21,12 @@ const register = async (req, res) =>
         console.log(req.body);
         //Agregando las validaciones
         await check('name').notEmpty().withMessage("The name can't be empty bro :D").run(req);
+        await check('userEmail').isEmail().withMessage("The email can't be empty bro :D or this not a email mijo").run(req);
+        await check('password').isLength({min: 8}).withMessage("The minimun lenght only can be 8 characters").run(req);
+        await check('repeat-password').equals("password").withMessage("The password must be equals").run(req);
+        
+        // verificar resultados
+        
         
         // validationResult va a validar las reglas que yo haya definido previamente
         let result = validationResult(req); 
