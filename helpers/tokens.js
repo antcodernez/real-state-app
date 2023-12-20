@@ -1,5 +1,5 @@
 
-const generateId = () => Date.now().toString(32) + Math.random().toString(32).substring(2);
+const generateId = () => Date.now().toString(32) +(Math.random() * 100 + 1).toString(32).substring(2);
 // como solo es una linea no es necesario el return ñ.ñ
 // toString(32) convierte ese número en una cadena en base 32.
 // toString(32) convierte ese número en una cadena en base 32.
