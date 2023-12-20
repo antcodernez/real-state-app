@@ -67,6 +67,12 @@ const register = async (req, res) =>
             password,
             token: generateId()
         })
+        
+        // mostrar mensaje de confirmacion
+        res.render("templates/message",{
+            page: "Account created successfully",
+            message: "We have sent a confirmation email, click the link below"
+        })
     }
 
 const formularioForgetpassword = (req, res) =>
