@@ -12,8 +12,11 @@ const formularioLogin = (req, res) =>
     
 const formularioRegister = (req, res) =>
     {
+        // console.log();
+
         res.render(`auth/register`, {
-            page: "Create Account"
+            page: "Create Account",
+            csrfToken: req.csrfToken(), //
         }); 
     } 
 
@@ -36,10 +39,11 @@ const register = async (req, res) =>
             {
                  return res.render(`auth/register`, {
                     page: "Create Account",
+                    csrfToken: req.csrfToken(),
                     errors: errorsList.array(),
                     user: {
                         name: req.body.name,
-                        userEmail: req.body.userEmail                    
+                        userEmail: req.body.userEmail,
                     }
                 }); 
             }
@@ -54,11 +58,12 @@ const register = async (req, res) =>
         if(userExist)
             {
                 return res.render(`auth/register`, {
+                    csrfToken: req.csrfToken(),
                     page: "Create Account",
                     errors: [{msg: "This user is already registered"}],
                     user: {
                         name: req.body.name,
-                        userEmail: req.body.userEmail                    
+                        userEmail: req.body.userEmail
                     }
                 }); 
             }
