@@ -83,6 +83,36 @@ const register = async (req, res) =>
         })
     }
 
+
+const confirmAccount = async (req, res) => {
+    
+    const {token} = req.params;
+
+    //Verificar el token que sea valido
+    const user = await User.findOne({where: {token}});
+    
+    if(!user)
+        {
+            return res.render("auth/confirm-account", {
+                page: "Error to confirm your account",
+                message: "We have an error to confirm your account try again",
+                error: true
+            });
+        }
+    
+    // confirm your account
+    user.token = null;
+    user.confirmed = true;
+
+    await user.save(); // save(); metodo para guardar mis cambios del objeto que hice en memoria y despues en la base de datos se guardan
+
+    res.render("auth/confirm-account", {
+        page: "Account confirmed 👍",
+        message: "Your account is confirmed succesfully"
+    });
+    
+}
+
 const formularioForgetpassword = (req, res) =>
     {
         res.render(`auth/forgot-password`, {
@@ -95,7 +125,8 @@ export {
         formularioLogin, 
         formularioRegister,
         formularioForgetpassword,
-        register
+        register,
+        confirmAccount
     }
 
 // export default formularioLogin; esta manera solo me permitira exportar una cosa por archivo

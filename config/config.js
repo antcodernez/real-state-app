@@ -13,7 +13,8 @@ const config = {
     emailHost: process.env.EMAIL_HOST,
     emailPort: process.env.EMAIL_PORT,
     emailUser: process.env.EMAIL_USER,
-    emailPass: process.env.EMAIL_PASSWORD
+    emailPass: process.env.EMAIL_PASSWORD,
+    urlBackend: process.env.URL_BACKEND
   }
 
 export {config};

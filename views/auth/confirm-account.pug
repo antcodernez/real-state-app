@@ -1,0 +1,13 @@
+extends ../layout/index
+
+block contenido 
+    div(class="py-10")  
+        h1(class="text-4xl my-10 font-extrabold text-center text-purple-500") Real
+            span.font-normal.text-black Estate
+        h2(class="text-center text-2xl font-bold")= page
+    div(class="bg-slate-50 shadow py-8 px-4 rounded-lg max-w-md mx-auto")
+        p(class=error ? "bg-red-500": "bg-green-500").py-2.px-5.rounded-lg.w-full.font-bold.text-center.text-white.uppercase= message
+    if !error
+        a(href="http://localhost:4000/auth/login" class="link").text-center.font-bold.text-sm.text-slate-600.uppercase.mt-10.block You can login now
+
+         
