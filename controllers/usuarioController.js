@@ -1,7 +1,8 @@
 import { check, validationResult} from "express-validator";
 import { User } from "../models/Usuario.js";
 import { generateId } from "../helpers/tokens.js";
-import { emailRegister } from "../helpers/emails.js";
+import { emailRegister, emailForgetPassword } from "../helpers/emails.js";
+import { token } from "morgan";
 
 const formularioLogin = (req, res) =>
     {
@@ -25,9 +26,9 @@ const register = async (req, res) =>
         console.log("Post about one users");
         console.log(req.body);
         //Agregando las validaciones
-        await check('name').notEmpty().withMessage("The name can't be empty bro :D").run(req);
+        await check('name').notEmpty().withMessage("The name can't be empty bro 💩").run(req);
         await check('userEmail').isEmail().withMessage("This not a email mijo").run(req);
-        await check('password').isLength({min: 8}).withMessage("The minimun lenght only can be 8 characters").run(req);
+        await check('password').isLength({min: 8}).withMessage("The minimun lenght only can be 8 characters 👹").run(req);
         await check('repeatPassword').equals(req.body.password).withMessage("The password must be equals").run(req);
         // run(req); lo que hace invocar la funcion, se puede hacer en el routing o en el controlador depende de gustos supongo
 
@@ -60,7 +61,7 @@ const register = async (req, res) =>
                 return res.render(`auth/register`, {
                     csrfToken: req.csrfToken(),
                     page: "Create Account",
-                    errors: [{msg: "This user is already registered"}],
+                    errors: [{msg: "This user is already registered 💀"}],
                     user: {
                         name: req.body.name,
                         userEmail: req.body.userEmail
@@ -87,7 +88,6 @@ const register = async (req, res) =>
             message: "We have sent a confirmation email, click the link below"
         })
     }
-
 
 const confirmAccount = async (req, res) => {
     
@@ -121,17 +121,94 @@ const confirmAccount = async (req, res) => {
 const formularioForgetpassword = (req, res) =>
     {
         res.render(`auth/forgot-password`, {
-            page: "Regain your access to real estate"
+            page: "Regain your access to real estate",
+            csrfToken: req.csrfToken(),
         }); 
     } 
 
+
+const resetPassword = async (req, res) => {
+    await check('userEmail').isEmail().withMessage("This not a email mijo").run(req);
+    // verificar resultados
+    let errorsList = validationResult(req); 
+    // validationResult va a validar las reglas que yo haya definido previamente
+    if(!errorsList.isEmpty())
+        {
+            return res.render(`auth/forgot-password`, {
+                    page: "Regain your access to real estate",
+                    csrfToken: req.csrfToken(),
+                    errors: errorsList.array(),
+                }); 
+        }
+    
+    //Buscar si el usuario existe
+    const {userEmail} = req.body;
+    const user = await User.findOne({where: {userEmail}});
+    // console.log("Reset password from user: ")
+    // console.log(user);
+    if(!user)
+            {
+                return res.render(`auth/forgot-password`, {
+                    csrfToken: req.csrfToken(),
+                    page: "Regain your access to real estate",
+                    errors: [{msg: "This user is not found 💀"}],
+                }); 
+            }
+    
+    // Generar un token y enviar el email
+    user.token = generateId();
+    await user.save();
+
+    // Enviar un email
+    emailForgetPassword({
+        email:user.userEmail,
+        name:user.name,
+        token: user.token
+    });
+
+    // Renderizar un mensaje
+    res.render("templates/message",{
+        page: "Reset password",
+        message: "We have sent a email with instructions"
+    })
+}
+
+const checkToken = async (req, res) => {   
+    const { token } = req.params;
+    const user = await User.findOne({where: {token}});
+    
+    if(!user)
+        {
+            return res.render("auth/confirm-account", {
+                page: "Restore your password",
+                message: "We have an error to confirm your account, try it again 💀",
+                error: true
+            });
+        
+        }
+    
+    //mostrar formulario para validar el password
+    res.render("auth/reset-password", {
+        page: "Reset your password",
+        csrfToken: req.csrfToken(),
+    });
+
+}
+
+const newPassword = async (req, res) => {
+    console.log("saving new password");
+    
+}
 
 export { 
         formularioLogin, 
         formularioRegister,
         formularioForgetpassword,
         register,
-        confirmAccount
+        confirmAccount,
+        resetPassword,
+        checkToken,
+        newPassword
     }
 
 // export default formularioLogin; esta manera solo me permitira exportar una cosa por archivo

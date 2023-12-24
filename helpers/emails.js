@@ -29,6 +29,36 @@ const emailRegister = async (data) => {
     })
 }
 
+const emailForgetPassword = async (data) => {
+    const transport = nodemailer.createTransport({
+        host: config.emailHost,
+        port: config.emailPort,
+        auth: {
+          user: config.emailUser,
+          pass: config.emailPass
+        }
+      });
+
+    const {name, email, token} = data;
+    
+    //send email
+    await transport.sendMail({
+      from: "real-state.com",
+      to: email,
+      subject: "Reset your password",
+      text: "Confirm your account on real-state.com",
+      html: `
+      <h1>Hi ${name}!</h1>
+      <p>You have requested to reset your password on realEstate.com</p>
+      <a href="${config.urlBackend}:${config.port}/auth/forget-password/${token}">Follow we</a>
+
+      <p>If you did not request a password change, ignore this message</p>
+
+      `
+    })
+}
+
 export {
-    emailRegister
+    emailRegister,
+    emailForgetPassword
 }
