@@ -1,8 +1,9 @@
 import { check, validationResult} from "express-validator";
+import bcrypt from "bcrypt";
+
 import { User } from "../models/Usuario.js";
 import { generateId } from "../helpers/tokens.js";
 import { emailRegister, emailForgetPassword } from "../helpers/emails.js";
-import { token } from "morgan";
 
 const formularioLogin = (req, res) =>
     {
@@ -196,9 +197,46 @@ const checkToken = async (req, res) => {
 }
 
 const newPassword = async (req, res) => {
-    console.log("saving new password");
+    console.log("saving new password " + req.body.password);
+    // Validar el password
+    await check('password').isLength({min:8}).withMessage("The minimun lenght only can be 8 characters💀").run(req);
     
+    let errorsList = validationResult(req); 
+    // validationResult va a validar las reglas que yo haya definido previamente
+    if(!errorsList.isEmpty())
+        {
+            return res.render(`auth/reset-password`, {
+                    page: "Regain your access to real estate",
+                    csrfToken: req.csrfToken(),
+                    errors: errorsList.array(),
+                }); 
+        }
+    
+    const {token } = req.params;
+    const { password } = req.body;
+        
+    // identificar quien hace el cambio
+    const user = await User.findOne({where: {token}});
+    
+    // hashear el password
+    const salt = await bcrypt.genSalt(10);
+    user.password = await bcrypt.hash(password, salt);
+    user.token = null;
+    
+    await user.save();
+
+    // res.render("auth/confir",{
+    //     page: "Changed your password suceesfully 💥 \nnow you can login again",
+    //     message: "You have successfully changed your password",
+    //     csrfToken: req.csrfToken(),
+    // });
+
+    res.render("auth/confirm-account", {
+        page: "Password reset suceesfully 💥",
+        message: "Password saved currectly",
+    });
 }
+
 
 export { 
         formularioLogin, 

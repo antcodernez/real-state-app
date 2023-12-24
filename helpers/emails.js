@@ -50,10 +50,8 @@ const emailForgetPassword = async (data) => {
       html: `
       <h1>Hi ${name}!</h1>
       <p>You have requested to reset your password on realEstate.com</p>
-      <a href="${config.urlBackend}:${config.port}/auth/forget-password/${token}">Follow we</a>
-
+      <a href="${config.urlBackend}:${config.port}/auth/forget-password/${token}">Follow the following link</a>
       <p>If you did not request a password change, ignore this message</p>
-
       `
     })
 }
