@@ -28,6 +28,29 @@ const autenticate = async (req, res) => {
                 }); 
             }
         
+        //Comprobar si el usuario existe
+        const {userEmail, password} = req.body;
+        const user = await User.findOne({where: {userEmail}});
+
+        if(!user)
+            {
+                return res.render(`auth/login`, {
+                    page: "login",
+                    csrfToken: req.csrfToken(),
+                    errors: [{msg: "This user not exist"}]
+                });    
+            }
+        
+        // Comprobar si el usuario esta confirmado
+        if(!user.confirmed)
+            {
+                return res.render(`auth/login`, {
+                    page: "login",
+                    csrfToken: req.csrfToken(),
+                    errors: [{msg: "This Account has not been confirmed"}]
+                });    
+            
+            }
     };
 const formularioRegister = (req, res) =>
     {
