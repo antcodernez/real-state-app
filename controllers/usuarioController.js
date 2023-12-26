@@ -8,10 +8,27 @@ import { emailRegister, emailForgetPassword } from "../helpers/emails.js";
 const formularioLogin = (req, res) =>
     {
         res.render(`auth/login`, {
-            page: "Log in"
+            page: "Log in",
+            csrfToken: req.csrfToken(),
         }); 
     } 
-    
+const autenticate = async (req, res) => {
+        //Validacion
+        await check('userEmail').notEmpty().withMessage("The email can't be null mijo").run(req);
+        await check('password').notEmpty().withMessage("The password can't be null👹").run(req);
+
+        let errorsList = validationResult(req); 
+        
+        if(!errorsList.isEmpty())
+            {
+                 return res.render(`auth/login`, {
+                    page: "login",
+                    csrfToken: req.csrfToken(),
+                    errors: errorsList.array()
+                }); 
+            }
+        
+    };
 const formularioRegister = (req, res) =>
     {
         // console.log();
@@ -246,7 +263,8 @@ export {
         confirmAccount,
         resetPassword,
         checkToken,
-        newPassword
+        newPassword,
+        autenticate
     }
 
 // export default formularioLogin; esta manera solo me permitira exportar una cosa por archivo

@@ -6,20 +6,26 @@ block contenido
             span.font-normal.text-black Estate
         h2(class="text-center text-2xl font-bold")= page
         
+        if errors 
+            div(class="max-w-md my-10 mx-auto")
+                each error in errors
+                    p(class="bg-red-600 text-white uppercase text-xs text-center p-2 mb-1 font-bold")= error.msg
+
         div(class="mt-8 mx-auto max-w-md bg-white py-8 px-4 shadow")
             div
-                form
+                form(method="POST" action="/auth/login")
+                    input(type="hidden" name="_csrf" value= csrfToken)
                     div 
                         label.block.my-5.text-sm.uppercase.text-gray-600.mb-2.font-semibold(for="userEmail") Email:
 
-                        input#userEmail.w-full.px-2.py-4.border.border-purple-600.cursor-text.rounded-lg.placeholder-purple-300(placeholder="example@example.com" tabindex=2 name="userEmail" type="email")
+                        input#userEmail.w-full.px-2.py-4.border.border-purple-600.cursor-text.rounded-lg.placeholder-purple-300(placeholder="example@example.com" tabindex=1 name="userEmail" type="email")
                     div 
                         label.block.my-5.text-sm.uppercase.text-gray-600.mb-2.font-semibold(for="password") Password:
 
-                        input#password.w-full.px-2.py-4.border.border-purple-600.cursor-text.rounded-lg.placeholder-purple-300(placeholder="******" tabindex=3 name="password" type="password")
+                        input#password.w-full.px-2.py-4.border.border-purple-600.cursor-text.rounded-lg.placeholder-purple-300(placeholder="******" tabindex=2 name="password" type="password")
                     
                     div(class="flex items-center justify-between mt-5")
                         a(href="forget-password" class="text-gray-500 text-xs") forgot password?
                         a(href="register" class="text-gray-500 text-xs") Create an account
 
-                    input(type="submit", value="Log in" class="w-full bg-purple-500 hover:bg-purple-700 cursor-pointer text-white font-bold py-3 mt-8 rounded-xl")
+                    input(type="submit", value="Log in" class="w-full bg-purple-500 hover:bg-purple-700 cursor-pointer text-white font-bold py-3 mt-8 rounded-xl" tabindex=3)
