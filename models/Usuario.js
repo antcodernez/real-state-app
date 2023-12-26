@@ -36,4 +36,12 @@ const User= db.define("tb_users",{
 
 //Las columnas de la tabla si quiero agregar mas objetos atributos puedo pasarle un objeto dentre de si
 
+//Metodos personalizados
+User.prototype.verifyPassword = function(password) {
+    return bcrypt.compareSync(password, this.password);
+    // está comparando la contraseña proporcionada con la contraseña almacenada utilizando la función de comparación sincrónica de bcrypt, y el resultado de esta comparación se utiliza en algún lugar de la lógica de autenticación para determinar si la contraseña es válida.
+} 
+
+// dentro de una funcion flecha no puedo usar this.password porque se queda limitado al scope
+
 export { User };

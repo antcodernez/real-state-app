@@ -49,7 +49,17 @@ const autenticate = async (req, res) => {
                     csrfToken: req.csrfToken(),
                     errors: [{msg: "This Account has not been confirmed"}]
                 });    
-            
+            }
+        
+        
+        //revisa el password
+        if(!user.verifyPassword(password))
+            {
+                return res.render(`auth/login`, {
+                    page: "login",
+                    csrfToken: req.csrfToken(),
+                    errors: [{msg: "The password wrong!! 💩"}]
+                });
             }
     };
 const formularioRegister = (req, res) =>
